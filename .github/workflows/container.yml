@@ -1,4 +1,4 @@
-name: "Docker"
+name: "Container"
 
 on: [push]
 
@@ -10,7 +10,7 @@ jobs:
         environments: [Debug, Release]
     env:
       CORE_MODE: ${{ matrix.environments }}
-    name: "Compile And Push on ${{ matrix.environments }}"
+    name: "Supported Architectures / Compile And Push"
     steps:
       - uses: actions/checkout@v3
       -
@@ -33,14 +33,20 @@ jobs:
           push: true
           tags: "zencommunity/core:${{ matrix.environments }}-${{ github.sha }}"
           context: .
+          platforms: linux/amd64,linux/arm64
           file: Dockerfile
           no-cache: true
       -
         name: Digest
         run: echo ${{ steps.docker_build.outputs.digest }}
   execute:
-    name: "Run"
+    name: "Supported Architectures / Run"
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environments: [Debug, Release]
+    env:
+      CORE_MODE: ${{ matrix.environments }}
     container: "zencommunity/core:${{ matrix.environments }}-${{ github.sha }}"
     needs: [compile-and-push]
     steps:

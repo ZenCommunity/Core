@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   execute:
-    name: "Supported OS Build and Run"
+    name: "Supported OS / Build, Test and Run"
     runs-on: ubuntu-latest
     strategy:
       matrix:
