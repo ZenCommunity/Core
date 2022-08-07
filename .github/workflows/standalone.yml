@@ -20,7 +20,7 @@ jobs:
       -
         name: Build, Test and Run
         env:
-          CORE_MODE: ${{ matrix.environments }}
+          APP_MODE: ${{ matrix.environments }}
         run: |
           cd source
           ./build.sh
@@ -41,6 +41,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GH_API_TOKEN }}
           file: ${{ github.ref_name }}-${{ matrix.environments }}.zip
-          asset_name: "Binary on ${{ matrix.environments }}"
+          asset_name: "${{ github.ref_name }}—${{ matrix.environments }}—${{matrix.operative-system}}.zip"
           tag: ${{ github.ref }}
           overwrite: true
