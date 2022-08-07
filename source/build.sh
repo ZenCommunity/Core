@@ -1,9 +1,5 @@
 #/bin/bash
 
-# Compile
-cmake -S . -B . -DCMAKE_BUILD_TYPE=Release
+cmake -S . -B . -DCMAKE_BUILD_TYPE=$CORE_MODE
 cmake --install . --strip
-cmake --build . --config Release
-
-# Finish
-echo "Compiled ..."
+cmake --build . --config $CORE_MODE

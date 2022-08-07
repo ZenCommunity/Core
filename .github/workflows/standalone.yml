@@ -4,11 +4,12 @@ on: [push]
 
 jobs:
   execute:
-    name: "Supported OS Build and Run"
+    name: "Supported OS / Build, Test and Run"
     runs-on: ubuntu-latest
     strategy:
       matrix:
         operative-system: [ubuntu-22.04, ubuntu-20.04, ubuntu-18.04]
+        environments: [Debug, Release]
     steps:
       - uses: actions/checkout@v3
       -
@@ -17,11 +18,29 @@ jobs:
           sudo apt update 
           sudo apt install build-essential
       -
-        name: Build and Run
+        name: Build, Test and Run
+        env:
+          CORE_MODE: ${{ matrix.environments }}
         run: |
           cd source
           ./build.sh
+          ./Test
           ./Core
       -
         name: Digest
         run: echo "${{ github.sha }}"
+      -
+        name: Zip Binary
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r ${{ github.ref_name }}-${{ matrix.environments }}.zip source/Core
+      - name: Upload Binary
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GH_API_TOKEN }}
+          file: ${{ github.ref_name }}-${{ matrix.environments }}.zip
+          asset_name: "Binary on ${{ matrix.environments }}"
+          tag: ${{ github.ref }}
+          overwrite: true
