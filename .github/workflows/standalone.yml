@@ -29,3 +29,16 @@ jobs:
       -
         name: Digest
         run: echo "${{ github.sha }}"
+      -
+        name: Zip Binary
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r ${{ github.ref_name }}-${{ matrix.environments }}.zip source/Core
+      - name: Upload Binary
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GH_API_TOKEN }}
+          file: ${{ github.ref_name }}-${{ matrix.environments }}.zip
+          asset_name: "Binary on ${{ matrix.environments }}"
+          tag: ${{ github.ref }}
+          overwrite: true
