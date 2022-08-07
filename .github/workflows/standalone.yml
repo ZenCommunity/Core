@@ -17,10 +17,11 @@ jobs:
           sudo apt update 
           sudo apt install build-essential
       -
-        name: Build and Run
+        name: Build, Test and Run
         run: |
           cd source
           ./build.sh
+          ./Test
           ./Core
       -
         name: Digest
