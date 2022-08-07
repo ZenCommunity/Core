@@ -8,6 +8,7 @@ protected:
     std::string author = "Ian Torres";
     std::string contact = "iantorres@outlook.com";
     std::string version = "1.0.0";
+    std::string license = "CC BY-NC-ND";
 public:
     /**
      * Get name
@@ -34,12 +35,23 @@ public:
         return version;
     }
     /**
+     * Get license
+     * @return string
+     */
+    std::string getLicense()
+    {
+        return license;
+    }
+    /**
      * Get build
      * @return string
      */
-    std::string getBuild()
+    static std::string getBuild()
     {
         char * mode = std::getenv("APP_MODE");
+        if (mode == nullptr) {
+            return "Debug";
+        }
         std::string build(mode);
         return build;
     }

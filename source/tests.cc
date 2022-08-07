@@ -5,7 +5,7 @@
 
 TEST(EnvironmentTest, BasicVarsShouldBeAssigned) {
     char * MODE = std::getenv("APP_MODE");
-    EXPECT_TRUE(MODE != NULL);
+    EXPECT_TRUE(MODE != nullptr);
 }
 
 TEST(CopyrightTest, AuthorRecognition) {
