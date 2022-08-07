@@ -7,7 +7,7 @@ protected:
     std::string type = "Platform";
     std::string author = "Ian Torres";
     std::string contact = "iantorres@outlook.com";
-    std::string version = "1.0.0";
+    std::string version = "1.0.1";
     std::string license = "CC BY-NC-ND";
 public:
     /**
