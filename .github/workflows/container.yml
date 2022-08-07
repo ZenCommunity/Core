@@ -30,8 +30,8 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v3
         with:
-          push: true
-          tags: "zencommunity/core:${{ matrix.environments }}-${{ github.sha }}"
+          push: startsWith(github.ref, 'refs/tags/v')
+          tags: "zencommunity/core:${{ github.ref_name }}-${{ matrix.environments }}"
           context: .
           platforms: linux/amd64,linux/arm64
           file: Dockerfile
@@ -40,14 +40,14 @@ jobs:
         name: Digest
         run: echo ${{ steps.docker_build.outputs.digest }}
   execute:
-    name: "Supported Architectures / Run"
     runs-on: ubuntu-latest
     strategy:
       matrix:
         environments: [Debug, Release]
+    name: "Supported Architectures / Run / ${{ matrix.environments }}"
     env:
       CORE_MODE: ${{ matrix.environments }}
-    container: "zencommunity/core:${{ matrix.environments }}-${{ github.sha }}"
+    container: "zencommunity/core:${{ github.ref_name }}-${{ matrix.environments }}"
     needs: [compile-and-push]
     steps:
       -
