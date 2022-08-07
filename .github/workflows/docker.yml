@@ -4,8 +4,13 @@ on: [push]
 
 jobs:
   compile-and-push:
-    name: "Compile And Push"
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environments: [Debug, Release]
+    env:
+      CORE_MODE: ${{ matrix.environments }}
+    name: "Compile And Push on ${{ matrix.environments }}"
     steps:
       - uses: actions/checkout@v3
       -
@@ -26,7 +31,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: "zencommunity/core:${{ github.sha }}"
+          tags: "zencommunity/core:${{ matrix.environments }}-${{ github.sha }}"
           context: .
           file: Dockerfile
           no-cache: true
@@ -36,7 +41,7 @@ jobs:
   execute:
     name: "Run"
     runs-on: ubuntu-latest
-    container: "zencommunity/core:${{ github.sha }}"
+    container: "zencommunity/core:${{ matrix.environments }}-${{ github.sha }}"
     needs: [compile-and-push]
     steps:
       -
