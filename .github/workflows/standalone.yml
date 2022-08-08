@@ -18,6 +18,7 @@ jobs:
           sudo apt update 
           sudo apt install build-essential
       - name: Install boost
+        id: install-boost
         uses: MarkusJx/install-boost@v2.3.0
         env:
           BUILD_TYPE: ${{ matrix.environments }}
