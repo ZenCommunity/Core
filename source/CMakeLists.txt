@@ -5,8 +5,8 @@ set(CMAKE_CXX_STANDARD 23)
 find_package(Boost 1.79 COMPONENTS json REQUIRED)
 include_directories( ${Boost_INCLUDE_DIR} )
 add_executable(Core app.cpp
-        about.h authorization.h network.h
-        headers.h)
+        about.h authorization.h network.h headers.h
+)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -19,8 +19,8 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(Test tests.cc
-        about.h authorization.h network.h
-        headers.h)
+        about.h authorization.h network.h headers.h
+)
 target_link_libraries(Test GTest::gtest_main)
 
 include(GoogleTest)

@@ -20,7 +20,7 @@ TEST(AuthorizationTest, AccessTokenShouldBeAssigned) {
 TEST(NetworkTest, EnvironmentPortShouldBeAssigned) {
     Network network;
     std::string env_port = std::getenv("APP_PORT");
-    EXPECT_EQ(network.getPort(), stoi(env_port));
+    EXPECT_EQ(network.getPort(), std::stoi(env_port));
 }
 
 TEST(NetworkTest, RunningShouldBeTrueAfterRun) {

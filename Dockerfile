@@ -1,4 +1,4 @@
-FROM alpine:3.16.1 as build
+FROM alpine:edge as build
 
 WORKDIR /source
 
@@ -14,9 +14,13 @@ COPY source .
 
 RUN ./build.sh
 
-FROM alpine:3.16.1 as service
+FROM alpine:edge as service
 
+ARG APP_ENV="Debug"
 ENV APP_ENV=$APP_ENV
+
+ARG APP_PORT=5000
+ENV APP_PORT=$APP_PORT
 
 RUN apk add --update libstdc++
 
