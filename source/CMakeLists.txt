@@ -2,8 +2,11 @@ cmake_minimum_required(VERSION 3.22)
 project(Core)
 
 set(CMAKE_CXX_STANDARD 23)
-
-add_executable(Core app.cpp about.h)
+find_package(Boost 1.79 COMPONENTS json REQUIRED)
+include_directories( ${Boost_INCLUDE_DIR} )
+add_executable(Core app.cpp
+        about.h authorization.h network.h
+        headers.h)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -15,7 +18,9 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(Test tests.cc)
+add_executable(Test tests.cc
+        about.h authorization.h network.h
+        headers.h)
 target_link_libraries(Test GTest::gtest_main)
 
 include(GoogleTest)

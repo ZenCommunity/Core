@@ -9,7 +9,7 @@ jobs:
       matrix:
         environments: [Debug, Release]
     env:
-      APP_MODE: ${{ matrix.environments }}
+      APP_ENV: ${{ matrix.environments }}
     name: "Supported Architectures / Compile And Push"
     steps:
       - uses: actions/checkout@v3
@@ -47,7 +47,7 @@ jobs:
         environments: [Debug, Release]
     name: "Supported Architectures / Run / ${{ matrix.environments }}"
     env:
-      APP_MODE: ${{ matrix.environments }}
+      APP_ENV: ${{ matrix.environments }}
     container: "zencommunity/core:${{ github.ref_name }}-${{ matrix.environments }}"
     needs: [compile-and-push]
     steps:

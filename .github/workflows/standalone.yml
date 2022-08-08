@@ -17,10 +17,15 @@ jobs:
         run: |
           sudo apt update 
           sudo apt install build-essential
+      - name: Install boost
+        uses: MarkusJx/install-boost@v2.3.0
+        with:
+          boost_version: 1.79.0
       -
         name: Build, Test and Run
         env:
-          APP_MODE: ${{ matrix.environments }}
+          APP_ENV: ${{ matrix.environments }}
+          APP_PORT: 5000
         run: |
           cd source
           ./build.sh
