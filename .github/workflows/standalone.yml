@@ -28,6 +28,7 @@ jobs:
         env:
           APP_ENV: ${{ matrix.environments }}
           APP_PORT: 5000
+          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
         run: |
           cd source
           ./build.sh
