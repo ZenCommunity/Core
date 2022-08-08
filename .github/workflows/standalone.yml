@@ -22,7 +22,7 @@ jobs:
         env:
           BUILD_TYPE: ${{ matrix.environments }}
         with:
-          boost_version: 1.79
+          boost_version: 1.79.0
       -
         name: Build, Test and Run
         env:
