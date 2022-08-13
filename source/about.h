@@ -8,7 +8,7 @@ protected:
     std::string build;
     std::string author = "Ian Torres";
     std::string contact = "iantorres@outlook.com";
-    std::string version = "1.0.1";
+    std::string version = "1.0.2";
     std::string license = "CC BY-NC-ND";
 public:
     /**
