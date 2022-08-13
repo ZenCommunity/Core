@@ -17,27 +17,21 @@ jobs:
         run: |
           sudo apt update 
           sudo apt install build-essential
-          sudo wget https://boostorg.jfrog.io/artifactory/main/release/1.79.0/source/boost_1_79_0.tar.gz
-          ls -l
-      - name: Install boost
-        id: install-boost
-        uses: MarkusJx/install-boost@v2.3.0
-        env:
-          BUILD_TYPE: ${{ matrix.environments }}
-        with:
-          boost_version: 1.79.0
+          sudo wget -q https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.tar.gz
+          sudo tar -xf boost_1_80_0.tar.gz
+          cd boost_1_80_0
+          sudo ./bootstrap.sh
+          sudo ./b2 install
+          cd ..
       -
         name: Build, Test and Run
         env:
           APP_ENV: ${{ matrix.environments }}
           APP_PORT: 5000
-          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
         run: |
           cd source
           sudo cmake -S . -B . \
-            -DCMAKE_BUILD_TYPE=${{ matrix.environments }} \
-            -DBoost_INCLUDE_DIR=${{steps.install-boost.outputs.BOOST_ROOT}}/include \
-            -DBoost_LIBRARY_DIRS=${{steps.install-boost.outputs.BOOST_ROOT}}/lib
+            -DCMAKE_BUILD_TYPE=${{ matrix.environments }}
           sudo cmake --install . --strip
           sudo cmake --build . --config ${{ matrix.environments }}
           ./Test
