@@ -4,8 +4,8 @@ project(Core)
 set(CMAKE_CXX_STANDARD 23)
 find_package(Boost 1.79.0 COMPONENTS json REQUIRED)
 include_directories( ${Boost_INCLUDE_DIR} )
-add_executable(Core app.cpp
-        about.h authorization.h network.h headers.h
+add_executable(Core main.cpp
+        about.h authorization.h network.h headers.h application.h environment.h
 )
 
 include(FetchContent)

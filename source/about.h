@@ -82,33 +82,13 @@ public:
         return contact;
     }
     /**
-     * Check
-     * @return void
+     * Render
      */
-    static void check()
+    void render()
     {
-        std::cout << "Checking ..." << std::endl;
-        bool error = false;
-        if (std::getenv("APP_ENV") == nullptr) {
-            error = true;
-            std::cout << "— APP_ENV is NOT OK." << std::endl;
-        } else {
-            std::cout << "— APP_ENV is OK." << std::endl;
-        }
-
-        if (std::getenv("APP_PORT") == nullptr) {
-            error = true;
-            std::cout << "— APP_PORT is NOT OK." << std::endl;
-        } else {
-            std::cout << "— APP_PORT is OK." << std::endl;
-        }
-
-        if (error) {
-            std::cout << "ALL is NOT OK." << std::endl;
-            exit(1);
-        } else {
-            std::cout << "ALL is OK." << std::endl;
-        }
+        std::cout << getName() << " " << getType() << " on " << getBuild() << " at " << getVersion() << "." << std::endl;
+        std::cout << "Created by " << getAuthor() << " <" << getContact() << ">." << std::endl;
+        std::cout << "All Rights Reserved. Distributed with License " << getLicense() << "." << std::endl;
     }
 };
 

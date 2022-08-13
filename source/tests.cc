@@ -22,9 +22,3 @@ TEST(NetworkTest, EnvironmentPortShouldBeAssigned) {
     std::string env_port = std::getenv("APP_PORT");
     EXPECT_EQ(network.getPort(), std::stoi(env_port));
 }
-
-TEST(NetworkTest, RunningShouldBeTrueAfterRun) {
-    Network network;
-    network.run();
-    EXPECT_TRUE(network.getRunning());
-}
