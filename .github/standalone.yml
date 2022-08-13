@@ -17,6 +17,8 @@ jobs:
         run: |
           sudo apt update 
           sudo apt install build-essential
+          sudo wget https://boostorg.jfrog.io/artifactory/main/release/1.79.0/source/boost_1_79_0.tar.gz
+          ls -l
       - name: Install boost
         id: install-boost
         uses: MarkusJx/install-boost@v2.3.0
