@@ -4,11 +4,10 @@ on: [push]
 
 jobs:
   execute:
-    name: "Supported OS / Build, Test and Run"
+    name: "Build, Test and Run"
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        operative-system: [ubuntu-22.04, ubuntu-20.04, ubuntu-18.04]
         environments: [Debug, Release]
     steps:
       - uses: actions/checkout@v3
@@ -16,7 +15,7 @@ jobs:
         name: Dependencies
         run: |
           sudo apt update 
-          sudo apt install build-essential
+          sudo apt install build-essential libgmock-dev
           sudo wget -q https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.tar.gz
           sudo tar -xf boost_1_80_0.tar.gz
           cd boost_1_80_0
@@ -51,6 +50,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GH_API_TOKEN }}
           file: ${{ github.ref_name }}-${{ matrix.environments }}.zip
-          asset_name: "${{ github.ref_name }}—${{ matrix.environments }}—${{matrix.operative-system}}.zip"
+          asset_name: "${{ github.ref_name }}—${{ matrix.environments }}.zip"
           tag: ${{ github.ref }}
           overwrite: true
