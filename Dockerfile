@@ -4,6 +4,12 @@ WORKDIR /source
 
 RUN apk add --update cmake make g++ git boost-dev
 
+RUN git clone https://github.com/google/googletest.git \
+    && cd googletest \
+    && cmake . \
+    && make \
+    && make install
+
 ARG APP_ENV="Debug"
 ENV APP_ENV=$APP_ENV
 

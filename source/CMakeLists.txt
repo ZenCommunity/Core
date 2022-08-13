@@ -8,18 +8,11 @@ add_executable(Core main.cpp
         about.h authorization.h network.h headers.h application.h environment.h
 )
 
-include(FetchContent)
-FetchContent_Declare(
-        googletest
-        GIT_REPOSITORY https://github.com/google/googletest.git
-        GIT_TAG release-1.12.1
-)
-FetchContent_MakeAvailable(googletest)
-
 enable_testing()
+find_package(GTest REQUIRED)
 
 add_executable(Test tests.cc
-        about.h authorization.h network.h headers.h
+        about.h authorization.h network.h headers.h application.h environment.h
 )
 target_link_libraries(Test GTest::gtest_main)
 
