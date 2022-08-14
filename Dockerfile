@@ -28,7 +28,7 @@ ENV APP_ENV=$APP_ENV
 ARG APP_PORT=5000
 ENV APP_PORT=$APP_PORT
 
-RUN apk add --update libstdc++
+RUN apk add --update libstdc++ boost-dev
 
 WORKDIR /app
 
