@@ -5,11 +5,19 @@ class About {
 protected:
     std::string name = "Core";
     std::string type = "Platform";
+    std::string build;
     std::string author = "Ian Torres";
     std::string contact = "iantorres@outlook.com";
-    std::string version = "1.0.1";
+    std::string version = "1.0.2";
     std::string license = "CC BY-NC-ND";
 public:
+    /**
+     * About constructor
+     */
+    About()
+    {
+        setBuild();
+    }
     /**
      * Get name
      * @return string
@@ -46,14 +54,16 @@ public:
      * Get build
      * @return string
      */
-    static std::string getBuild()
+    std::string getBuild()
     {
-        char * mode = std::getenv("APP_MODE");
-        if (mode == nullptr) {
-            return "Debug";
-        }
-        std::string build(mode);
         return build;
+    }
+    /**
+     * Set build
+     */
+    void setBuild()
+    {
+        build = std::getenv("APP_ENV");
     }
     /**
      * Get author
@@ -70,6 +80,15 @@ public:
     std::string getContact()
     {
         return contact;
+    }
+    /**
+     * Render
+     */
+    void render()
+    {
+        std::cout << getName() << " " << getType() << " on " << getBuild() << " at " << getVersion() << "." << std::endl;
+        std::cout << "Created by " << getAuthor() << " <" << getContact() << ">." << std::endl;
+        std::cout << "All Rights Reserved. Distributed with License " << getLicense() << "." << std::endl;
     }
 };
 
