@@ -17,8 +17,15 @@ TEST(AuthorizationTest, AccessTokenShouldBeAssigned) {
     EXPECT_TRUE(!authorization.getToken().empty());
 }
 
+
 TEST(NetworkTest, EnvironmentPortShouldBeAssigned) {
     Network network;
     std::string env_port = std::getenv("APP_PORT");
     EXPECT_EQ(network.getPort(), std::stoi(env_port));
+}
+
+TEST(NetworkTest, NetworkShouldReturnRunningTrueWhenRunIsExecuted) {
+    Network network;
+    network.run();
+    EXPECT_TRUE(network.getRunning());
 }
